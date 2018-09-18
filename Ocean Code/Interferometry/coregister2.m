@@ -1,5 +1,10 @@
 % Labels should be a (number of points x 1) vector
 % If r1(i) corresponds to r2(j), then labels(i) = j
+
+% Coregistering takes the most probably mapping between all of the radial
+% data from each reciever
+
+
 function labels = coregister2(r1, r2, minAngle, maxAngle, B)
     %Convert to [0, 360) range
     minAngle = mod(minAngle, 360);
