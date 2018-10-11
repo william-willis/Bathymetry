@@ -14,8 +14,12 @@ function labels = coregister3(r1, r2, L, error)
         r2 = sort(r2)
     % Max difference
         maxDiff = L + error;
+        minDiff = 0;
     % Go to point in r1
-        
+        for i = 1:length(r1)
+            r1(i)
+            
+        end
         % Find points that are within the min and max error range
         % Guess which point pairs up
             % Compare to r value of previous points
