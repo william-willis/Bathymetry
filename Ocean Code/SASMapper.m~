@@ -74,7 +74,6 @@ else
         % Find coordinates of sea floor points for each data swathe
         [data1nr,data1nh]=SAS(1);
         [data2nr,data2nh]=SAS(2);
-        [data3nr,data3nh]=SAS(3);
         
         data1{n}=[data1nr data1nh];
         data2{n}=[data2nr data2nh];
