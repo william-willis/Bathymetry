@@ -10,7 +10,7 @@ function [x_out, y_out, z_out] = SASMapper(Audio1, Audio2, Audio3)
 % simulation data built in to SAS code. 
 
 
-thetavals=0:30:360;
+thetavals=0;
 ltv=length(thetavals);
 
 %% Sound File Processing
@@ -52,9 +52,9 @@ data=cell(1,ltv);
 if nargin==3
     for n=1:ltv
         % Find coordinates of sea floor points for each data swathe
-        [data1nr,data1nh]=SAS(Audiodata1{n},n);
-        [data2nr,data2nh]=SAS(Audiodata2{n},n);
-        [data3nr,data3nh]=SAS(Audiodata3{n},n);
+        [data1nr,data1nh]=SAS(Audiodata1{n});
+        [data2nr,data2nh]=SAS(Audiodata2{n});
+        [data3nr,data3nh]=SAS(Audiodata3{n});
         
         data1{n}=[data1nr data1nh];
         data2{n}=[data2nr data2nh];

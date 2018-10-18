@@ -1,4 +1,4 @@
-function [batptsR,batptsH]=SAS(inputaudio);
+function [batptsR,batptsH]=SAS(inputaudio)
 
    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
    %    PULSED STRIPMAP SAS SIMULATION AND RECONSTRUCTION   %
@@ -11,8 +11,8 @@ inputflag=1;
 if (nargin==0)
     inputflag=0;
     inputaudio=0;
-elseif (inputaudio==1 || inputaudio==2)
-    inputflag=0;
+%elseif (inputaudio==1 || inputaudio==2)
+%   inputflag=0;
 end
    
 colormap(gray(256))
