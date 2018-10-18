@@ -81,7 +81,7 @@ else
         data3{n}=[data3nr data3nh];
         
         % Image correlation + interferometry function
-        angles{n}=angleInterferometry(data1{n},data2{n},data3{n},1
+        angles{n}=angleInterferometry(data1{n},data2{n},data3{n},1)
         % Data matrix
         data{n} = [data2{n} angles{n}];
     end  
