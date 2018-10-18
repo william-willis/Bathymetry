@@ -9,7 +9,6 @@ function [x_out, y_out, z_out] = SASMapper(Audio1, Audio2, Audio3)
 % region with the origin at the pod location. Without input, runs
 % simulation data built in to SAS code. 
 
-clear; clc;
 
 thetavals=0:30:360;
 ltv=length(thetavals);
