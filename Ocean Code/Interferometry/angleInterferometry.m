@@ -7,6 +7,11 @@ function angles = angleInterferometry(r1, r2, r3, B)
     sizeR1 = size(r1);
     numPoints = sizeR1(1);
     
+    % NEED TO SORT r lists outside of the coregister function
+    r1 = sort(r1)
+    r2 = sort(r2)
+    r3 = sort(r3)
+    
     labels_r1_r2 = coregister3(r1, r2, 60, 60, B); 
     labels_r1_r3 = coregister3(r1, r3, 60, 60, B);
     
