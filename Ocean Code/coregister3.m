@@ -38,6 +38,9 @@ function labels = coregister3(r1, r2, L, error)
             
             % Run the Guess Code
             if(length(possibleParings) > 0)
+                possDistances = r2(possibleParings) - r1(i)
+                possDistances = sort(possDistances)
+                
                 labels(i) = possibleParings(1)
                 r2(possibleParings(1)) = Inf
             end
