@@ -9,11 +9,10 @@ point = [-800:10:800]
 r1 = sqrt((x1-point).^2 + y1.^2);
 r2 = sqrt((x2-point).^2 + y2.^2);
 
-diff = r2-r1;
 
 d = 100*ones(length(r1));
 
-L = abs(x2-x1);
+L = sqrt((x2-x1).^2 + (y2-y1).^2);
 
 figure(1)
 clf

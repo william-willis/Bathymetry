@@ -9,7 +9,12 @@ point = [-800:10:800]
 r1 = sqrt((x1-point).^2 + y1.^2);
 r2 = sqrt((x2-point).^2 + y2.^2);
 
-diff = r2-r1
+
+r2_sorted = sort(r2)
+r1_sorted = sort(r1);
+
+diff = r2-r1;
+
 
 d = 100*ones(length(r1));
 
@@ -38,14 +43,15 @@ sorted_r2 = sort(r2);
 labels_co = coregister3(sorted_r1, sorted_r2, L, .05*L)
 
 % Calculate accuracy
-trueCount
-falseCount 
+trueCount = 0;
+falseCount = 0;
 for index = 1:length(labels_co)
     if(labels_co(index) == index)
-        
+        trueCount = trueCount + 1;
     else
-        
+        falseCount = falseCount + 1;
     end
 end
 
+accuracy = trueCount / length(labels_co)
 

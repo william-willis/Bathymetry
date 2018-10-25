@@ -14,7 +14,6 @@ function labels = coregister3(r1, r2, L, error)
         r1 = sort(r1)
         r2 = sort(r2)
         
-        
     % Max difference
         maxDiff = L + error;
         minDiff = 0;
@@ -39,10 +38,14 @@ function labels = coregister3(r1, r2, L, error)
             % Run the Guess Code
             if(length(possibleParings) > 0)
                 possDistances = r2(possibleParings) - r1(i)
-                possDistances = sort(possDistances)
+                table = [possDistances' possibleParings']
+                table = sortrows(table)
                 
-                labels(i) = possibleParings(1)
-                r2(possibleParings(1)) = Inf
+                len = size(table)
+                
+                val = randi(len(1));
+                labels(i) = table(val,2);
+                r2(table(val,2)) = Inf;
             end
         end
         
