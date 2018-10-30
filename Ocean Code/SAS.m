@@ -250,11 +250,17 @@ pause(1)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end % end of simulation option
 
+
+
 if (inputflag==1)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%               Audio File Processing              %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+%
+s=zeros(n,m);        % SAS signal array
+depth1 = 1;
+depth2 = 10;
+s(:,1)=linspace(depth1,depth2,n);
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end % end of audio file processing option
