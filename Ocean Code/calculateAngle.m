@@ -18,7 +18,7 @@ function theta = calculateAngle(r1, r2, r3, B)
 % Assuming 3 receivers arranged in an equilateral triangle with sides of
 % length B, calculates the angle of point relative to line drawn from a
 % given receiver to opposite side of triangle
-theta = 150 - acosd((-r2^2 + r1^2 + d^2)/(2*B*r1));
+theta = 150 - acosd((-r2^2 + r1^2 + B^2)/(2*B*r1));
 % Add 150 degrees if signal is received from same distance from r1/r2 but
 % different distance from r3 (i.e. same distance but opposite side)
 if (r3 < r1) && (r3 < r2)
