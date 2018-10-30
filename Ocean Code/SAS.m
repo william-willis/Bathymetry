@@ -261,6 +261,7 @@ s=zeros(n,m);        % SAS signal array
 depth1 = 1;
 depth2 = 10;
 s(:,1)=linspace(depth1,depth2,n);
+tm=(2*Xc/c)+dt*(-n/2:n/2-1);   % fast-time array after matched filtering
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 end % end of audio file processing option
