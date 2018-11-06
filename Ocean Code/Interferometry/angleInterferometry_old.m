@@ -12,28 +12,14 @@ function angles = angleInterferometry(r1, r2, r3, B)
     r2 = sort(r2)
     r3 = sort(r3)
     
-    labels_r1_r2 = coregister3(r1, r2, B, .05*B); 
-    labels_r1_r3 = coregister3(r1, r3, B, .05*B);
+    labels_r1_r2 = coregister3(r1, r2, B, 0.5*B); 
+    labels_r1_r3 = coregister3(r1, r3, B, 0.5*B);
     
     minAngle = 60;
     angleRange = 60;
     
     angles = zeros(numPoints, 1);
-    if numPoints ~= length(labels_r1_r2)
-        numPoints = length(labels_r1_r2)
-    end
     for i = 1:numPoints
-        if i > length(labels_r1_r2)
-            fprintf('numpoints: %d\n', numPoints);
-            fprintf('r1_r2 length: %d, r1_r3 length: %d, i: %d\n',...
-                length(labels_r1_r2), length(labels_r1_r3), i)
-            error('Error, i exceeds labels_r1_r2');
-        elseif i > length(labels_r1_r3)
-            fprintf('numpoints: %d\n', numPoints);
-            fprintf('r1_r2 length: %d, r1_r3 length: %d, i: %d\n',...
-                length(labels_r1_r2), length(labels_r1_r3), i)
-            error('Error, i exceeds labels r1 r3');
-        end
         if (labels_r1_r2(i) > 0 && labels_r1_r2(i) <= numPoints) && (labels_r1_r3(i) > 0 && labels_r1_r3(i) <= numPoints) 
             angles(i) = calculateAngle(r1(i), r2(labels_r1_r2(i)), r3(labels_r1_r3(i)), B);
         else

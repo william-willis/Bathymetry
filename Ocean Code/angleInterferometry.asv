@@ -12,14 +12,15 @@ function angles = angleInterferometry(r1, r2, r3, B)
     r2 = sort(r2)
     r3 = sort(r3)
     
-    labels_r1_r2 = coregister3(r1, r2, 60, 60, B); 
-    labels_r1_r3 = coregister3(r1, r3, 60, 60, B);
+    labels_r1_r2 = coregister3(r1, r2, B, .05*B); 
+    labels_r1_r3 = coregister3(r1, r3, B, .05*B);
     
     minAngle = 60;
     angleRange = 60;
     
     angles = zeros(numPoints, 1);
     for i = 1:numPoints
+        if ()
         if (labels_r1_r2(i) > 0 && labels_r1_r2(i) <= numPoints) && (labels_r1_r3(i) > 0 && labels_r1_r3(i) <= numPoints) 
             angles(i) = calculateAngle(r1(i), r2(labels_r1_r2(i)), r3(labels_r1_r3(i)), B);
         else

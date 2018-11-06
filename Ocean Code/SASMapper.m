@@ -106,7 +106,8 @@ xlin = linspace(min(x_out),max(x_out),50);
 ylin = linspace(min(y_out),max(y_out),50);
 
 [X,Y] = meshgrid(xlin,ylin);
-f = scatteredInterpolant(x_out',y_out',z_out');
+f = scatteredInterpolant(x_out,y_out,z_out);
+%f = scatteredInterpolant(x_out',y_out',z_out');
 Z = f(X,Y);
 figure(1)
 surf(X,Y,Z);

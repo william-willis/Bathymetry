@@ -43,11 +43,8 @@ function labels = coregister3(r1, r2, L, error)
                 
                 len = size(table)
                 val = min(table(:,1));
-              %  fprintf('Index is: \n');
-                index = find(table(:,1)==val);
-                if (length(index) > 1)
-                    index = index(1);
-                end
+                fprintf('Index is: \n'
+                index = find(table(:,1)==val)
    %             val = randi(len(1));
                 labels(i) = table(index,2);
                 r2(table(index,2)) = Inf;
