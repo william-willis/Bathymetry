@@ -6,7 +6,7 @@ k = 1;
 while i <= j
     current_fid = fopen(bathyfile); %inputted .bty file
     name = strcat('copy_of_',num2str(k),'_',bathyfile); %creates a new name for the copy
-    edit(name)
+    edit(name);
     bathyfile_edit = strcat('copy_of_',num2str(k),'_',bathyfile);
     %Finds the matrix size
     textscan(current_fid, '%s', 1, 'Delimiter', '\n');

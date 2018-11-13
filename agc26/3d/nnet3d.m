@@ -73,7 +73,7 @@ view(net)
 % Deployment
 % Change the (false) values to (true) to enable the following code blocks.
 % See the help for each generation function for more information.
-if (false)
+if (true)
     % Generate MATLAB function for neural network for application
     % deployment in MATLAB scripts or with MATLAB Compiler and Builder
     % tools, or simply to examine the calculations your trained neural
