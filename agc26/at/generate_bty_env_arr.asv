@@ -1,6 +1,8 @@
-%plz parpool asap
+%% Pipeline master to generate noisy bty, env, arr, and wav files for
+%   training the neural network.
+%   Inputs are the base, not noisy bathymetry file (bathyfile) you wish to add noise
+%   to, and the number of noisy files you want to generate (j).
 function product = generate_bty_env_arr(bathyfile, j)
-%parpool
 i = 1;
 k = 1;
 while i <= j
