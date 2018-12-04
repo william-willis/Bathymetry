@@ -2,6 +2,8 @@
 %   training the neural network.
 %   Inputs are the base, not noisy bathymetry file (bathyfile) you wish to add noise
 %   to, and the number of noisy files you want to generate (j).
+%   Created by Alexander Culbert
+%   October 2018
 function product = generate_noisy_data(bathyfile, j)
 i = 1;
 k = 1;

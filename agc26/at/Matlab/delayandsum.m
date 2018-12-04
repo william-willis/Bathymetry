@@ -7,6 +7,13 @@ function delayandsum(input)
 %
 % mbp 8/96, Universidade do Algarve
 % 4/09 addition of Doppler effects
+% Edits made by Alexander Culbert
+% November 2018
+
+% Important: Likely the reason the NN has bad training data lies within
+% this code. I have made minor edits to it already, but its worth comparing
+% this delayandsum to the delayandsum.m found in the waw24 branch, and to
+% the one directly downloaded from the at website.
 
 %clear all
 
@@ -217,7 +224,7 @@ end
 
 %%
 % save to a Matlab timeseries file
-%10/3/18 Alex edit changed irr to 10 from 26
+%10/3/18 Alex edit changed irr to 10 from 26 and then to 2
 irr = 2;
 %irr = 26;   % select range
 %irr = 6;   % select range

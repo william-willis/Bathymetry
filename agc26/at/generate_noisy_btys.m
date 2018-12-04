@@ -1,3 +1,10 @@
+%% Specific function to generate the Perlin noise applied .bty files.
+% Inputs are s = perlin2D output, BATHYFILE = non-noisy .bty file,
+% n & m equal .bty matrix size, and bathyfile_edit equals the new,
+% noisy .bty file.
+% Created by Alexander Culbert
+% October 2018
+
 function noisy_btys = generate_noisy_btys(s, BATHYFILE, n, m, bathyfile_edit)
 fid = fopen(BATHYFILE);
 header = textscan(fid, '%s', 5, 'Delimiter', '\n');
