@@ -35,7 +35,7 @@ isd = 1;   % source depth index
 % source timeseries
 % STSFIL = 'Ricker.wav'
 % STSFIL = 'sample_band-A_pkt-2_2frames.wav'
-STSFIL = 'Copy_of_chirp_0.1s.wav';
+STSFIL = 'Copy_of_chirp_0.1s.wav'; %should be a chirp at the required freq.
 % [ stsTemp, sample_rate ] = audioread( STSFIL );
 [ stsTemp, sample_rate ] = audioread( STSFIL );
 % sts = stsTemp( 1 : 2 : 5 * 96000 );  % sub-sample down to 48000/s
