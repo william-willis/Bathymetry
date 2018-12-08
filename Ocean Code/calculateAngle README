@@ -1,0 +1,25 @@
+This README describes the algorithm for calculating the angle in the calculateAngle.m function. A diagram showing the geometry
+of the pod and the angles calculated is also uploaded under the name AngleInterferometryDiagram.jpg.
+
+Since SAS outputs a map of xyz coordinates by transforming from cylindrical coordinates, calculateAngle.m calculates the
+theta-coordinate based on the geometry of the pod and the receiver-point distance r1, r2, and r3. For a given sensor, the
+angle is calculated from a line bisecting the angle formed by two edges of the triangular pod. This was adapted from a
+2-sensor implementation, where the angle between r1 and r2 was calculated instead.
+
+Based on the pod geometry, the angle theta was derived from the equation:
+
+theta = 150 - acosd((-r2^2 + r1^2 + B^2)/(2*B*r1))
+
+Where r1, r2 are the receiver-point distances for two of the sensors and B is the distance between sensors 1 and 2. Note
+that since the pod is an equilateral triangle, the line that bisects any angle of the triangle makes two 30-degree angles.
+Furthermore, because the pod is an equilateral triangle, it is symmetric, so the above equation for calculating angle can
+be used for any of the three sensors by denominating different sensors as r1, r2, and r3 based on the order of input
+arguments to the function.
+
+Based on the fact that the angle formed by the bisector is 30 degrees, the angle theta (shown in
+AngleInterferometryDiagram.jpg) can easily be derived based on the law of cosines and should be fairly easy to derive.
+
+The MATLAB implementation takes in the arguments r1, r2, r3, and B, with r1, r2, and r3 being receiver-point distances and
+B again being the distance between two sensors. The above equation is used to calculate theta. Then, since the angle could
+be relative to either side of the pod, we further boost accuracy by comparing r3 to r1 and r2. If r3 is less than either of
+r1 or r2, then the angle needs to be flipped to the other side, so we add 150 degrees to theta.
