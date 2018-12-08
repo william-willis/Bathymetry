@@ -17,3 +17,4 @@ end
 s = (s - min(min(s(:,:)))) ./ (max(max(s(:,:))) - min(min(s(:,:))));
 s = s + 0.5;
 end
+%%
