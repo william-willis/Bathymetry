@@ -6,57 +6,66 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GenerateBathymetry {
-
-
 	/**
 	 * This class shows how to create a Bathymetry File in Java
+	 * @author maddienelson
 	 * @param args
 	 * @throws IOException 
 	 */
 	static String FS = System.getProperty("file.separator");
+	
+	
+	
+	/**Variables to change:
+	 * FILE_PATH: change this to the file path in your computer where you have a folder 
+	 * in which you want the files to be created. Note: this program does not  create a folder for you.
+	 * Additionally, if you try to run the program and create a file with the same name as a file that
+	 * already exits in that folder, it will tell you so and not overwrite the original file.
+	 * NUM_TEST_FILES: This is the number of test files you would like to produce.
+	 * FILE_NAME: The name that you want each file to have. It will generate "FILE_NAME0", "FILE_NAME1" ...
+	 * NUM_ROWS: The number of rows you would like your bathymetry data to have.
+	 * NUM_COLS: The number of columns you would like your bathymetry data to have.
+	 * MAX_DEPTH: The maximum depth you want your bathymetry file to have.
+	 * MIN_DEPTH: The minimum depth you want your bathymetry file to have.
+	 */
+	
+
 	public static final String FILE_PATH = FS+"Users"+FS+"maddienelson"+FS+"Documents"+FS+"Bathymetry";
-	public static final int NUM_TEST_FILES = 5;
+	public static final int NUM_TEST_FILES = 6;	
+	public static final String FILE_NAME = "FallsLake";
+	public static int NUM_ROWS = 8;
+	public static int NUM_COLS = 20;
+	private static final double MAX_DEPTH = 13.0;
+	private static final double MIN_DEPTH = 5.0;
+	
+	
 	public static final String BTY = ".bty";
-	public static final String TEST_FILE = "testfile";
 	public static final String NL = "\n";
 	public static final String SPACE = "  ";
 	public static final String BIG_SPACE = "                     ";
-	public static final String LAKE_DATA = "FallsLake";
-
-	public static int NUM_ROWS;
-	public static int NUM_COLS;
-	
 	static double[][] grid;
 	
-	public static ArrayList<String> FILE_NAMES = new ArrayList<String>(){{
-	    add("Washington");
-	    add("Adams");
-	    add("Jefferson");
-	    add("Madison");
-	    add("Monroe");
-	    add("Quincy");
-	}};
-	
-	//max depth = 13 ft
-	//min depth = 0 ft
-	private static final double MAX_DEPTH = 13.0;
-	private static final double MIN_DEPTH = 5.0;
 
 
 	public static void main(String[] args) throws IOException {
-		//absolute file name with path
 		for(int fileNum = 0; fileNum<NUM_TEST_FILES; fileNum++) {
 			initMakeFiles(fileNum);
 		}
 	}
 	
 	private static void initMakeFiles(int fileNum) throws IOException {
-		String btyFileName = FILE_PATH+FS+LAKE_DATA+fileNum+BTY;
+		String btyFileName = FILE_PATH+FS+FILE_NAME+fileNum+BTY;
 		File btyFile = new File(btyFileName);
 		checkFile(btyFile, btyFileName);
 		makeBTYFile(fileNum,btyFile);
 	}
 
+	/**
+	 * This function checks that the class will not overwrite any preexisting files.
+	 * @param file
+	 * @param name
+	 * @throws IOException
+	 */
 	private static void checkFile(File file, String name) throws IOException {
 		if(file.createNewFile()){
 			System.out.println(name+" File Created");
@@ -73,24 +82,19 @@ public class GenerateBathymetry {
 		writeToFile(btyFile, str);
 	}
 	
-
-
 	private static void writeToFile(File file, String str) throws IOException {
 		BufferedWriter writer = new BufferedWriter(new FileWriter(file));
 		writer.write(str);
 		writer.close();			
 	}
 
-
-	//we want shapes that would make sense
-	//maybe get quandrants in the files and then have the quandrants have peaks or valleys.
 	private static String createBTYString(int fileNum) {
 		StringBuilder str = new StringBuilder();
 		String xLabels = generateLabel(NUM_COLS);
 		String yLabels = generateLabel(NUM_ROWS);
-		str.append("'R'"+NL); //don't know what the R is for...could be L or C
-		str.append(NUM_COLS+NL); //num rows.
-		str.append(xLabels+NL);  //x axis labels --> make an array list
+		str.append("'R'"+NL);
+		str.append(NUM_COLS+NL);
+		str.append(xLabels+NL);  
 		str.append(NUM_ROWS+NL);
 		str.append(yLabels+NL);
 		str.append(gridAsString()+NL);
@@ -111,19 +115,8 @@ public class GenerateBathymetry {
 
 
 	private static void makeGrid(int num) {
-		NUM_ROWS = 8;
-		NUM_COLS = 16;
 		grid = new double[NUM_ROWS][NUM_COLS];
-		int halfR = NUM_ROWS/2;
-		int halfC = NUM_COLS/2;
-		double a = 1.55;
-		double b = 1.32;
-		double e = 1.28;
-		double d = 4.7;
 		makeSlopeQuad(0, 0, NUM_ROWS, NUM_COLS, num);
-		//makeQuad(halfR, 0, NUM_ROWS, halfC);
-		//makeQuad(0, halfC, halfR, NUM_COLS);
-		//makeQuad(halfR, halfC, NUM_ROWS, NUM_COLS);
 	}
 	
 	private static void makeSlopeQuad(int iStart, int jStart, int rowMax, int colMax,int num) {
@@ -150,93 +143,6 @@ public class GenerateBathymetry {
 			}
 		}		
 	}
-	private static void makeQuad(int iStart, int jStart, int rowMax, int colMax) {
-		int midR = (int)((rowMax-iStart)/2);
-		int midC = (int)((rowMax-iStart)/2);
-		for(int i = iStart; i<rowMax; i++) {
-			for(int j = jStart; j<colMax; j++) {
-
-				if(i<midR && j<midC) {
-					grid[i][j]=Math.floor((Math.abs(rowMax+colMax - i - j))*1000)/1000;
-				}//bottomright
-				else if(i<midR && j>=midC) {
-					grid[i][j]=Math.floor((Math.abs(j+colMax - i))*1000)/1000;
-				}
-				else if(i>=midR && j<midC) {
-					grid[i][j]=Math.floor((Math.abs(rowMax+ i - j))*1000)/1000;
-				}
-				else if(i>=midR && j>=midC) {
-					grid[i][j]=Math.floor((Math.abs( i + j))*1000)/1000;
-				}
-				else {
-					grid[i][j] = 0.05;
-				}
-			}
-		}		
-	}
-
-
-	private static void makeQuad(int iStart, int jStart, int rowMax, int colMax, double a) {
-		int midR = (int)((rowMax-iStart)/2);
-		int midC = (int)((rowMax-iStart)/2);
-		for(int i = iStart; i<rowMax; i++) {
-			for(int j = jStart; j<colMax; j++) {
-				//bottomleft	  Math.floor(value * 100) / 100;
-
-				if(i<midR && j<midC) {
-					grid[i][j]=Math.floor((a+(i*j)+j+i)*1000)/1000;
-				}//bottomright
-				else if(i<midR && j>=midC) {
-					grid[i][j]=Math.floor((Math.abs(a-(i*j)))*1000)/1000;
-				}
-				else if(i>=midR && j<midC) {
-					grid[i][j]=Math.floor((Math.abs(a+j-i))*1000)/1000;
-				}
-				else if(i>=midR && j>=midC) {
-					grid[i][j]=Math.floor((Math.abs(a*i+j))*1000)/1000;
-				}
-				else {
-					grid[i][j] = 0.05;
-				}
-			}
-		}		
-	}
-
-//	private static void makeLakeQuad(int iStart, int jStart, int rowMax, int colMax, double a) {
-//		int midR = (int)((rowMax-iStart)/2);
-//		int midC = (int)((rowMax-iStart)/2);
-//		for(int i = iStart; i<rowMax; i++) {
-//			for(int j = jStart; j<colMax; j++) {
-//				//bottomleft	  Math.floor(value * 100) / 100;
-//				double val = getMaxLake(rowMax+colMax);
-//				if(i<midR) {
-//					//grid[i][j] = getMaxLake(Math.floor(obj*1000)/1000);
-//				}
-////				if(i<midR && j<midC) {
-////					grid[i][j]=getMaxLake(Math.floor((val - i*0.1 - j*0.1)*1000)/1000);
-////				}//bottomright
-////				else if(i<midR && j>=midC) {
-////					grid[i][j]=getMaxLake(Math.floor((val - i*0.1 + j*0.1)*1000)/1000);
-////				}
-////				else if(i>=midR && j<midC) {
-////					grid[i][j]=getMaxLake(Math.floor((val + i*0.1 - j*0.1)*1000)/1000);
-////				}
-////				else if(i>=midR && j>=midC) {
-////					grid[i][j]=getMaxLake(Math.floor((val + i*0.1 + j*0.1)*1000)/1000);
-////				}
-////				else {
-////					grid[i][j] = Math.floor(getMaxLake((i+j) *(i*j))*1000)/1000;
-////				}
-//			}
-//		}		
-//	}
-
-	private static double getMaxLake(double d) {
-		if(d<MAX_DEPTH && MIN_DEPTH<d) return d;
-		if(d>MAX_DEPTH && MIN_DEPTH<d) return getMaxLake(d/2);
-		if(d<MAX_DEPTH && MIN_DEPTH>d) return getMaxLake(d+2);
-		return d;
-	}
 
 	private static String generateLabel(int numVals) {
 		StringBuilder label = new StringBuilder();
@@ -249,7 +155,6 @@ public class GenerateBathymetry {
 	}
 	
 	private static double getMaxLabel(double d) {
-		//if(d>100) return getMaxLabel(d/2);
 		return d;
 	}
 }
