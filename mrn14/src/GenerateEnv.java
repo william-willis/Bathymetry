@@ -1,4 +1,5 @@
 
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -9,27 +10,28 @@ public class GenerateEnv {
 
 
 	/**
-	 * This class shows how to create an environment file in Java
+	 * This class shows how to create an Environment File in Java
+	 * @author maddienelson
 	 * @param args
 	 * @throws IOException 
 	 */
 	static String FS = System.getProperty("file.separator");
+	/**Variables to change:
+	 * FILE_PATH: change this to the file path in your computer where you have a folder 
+	 * in which you want the files to be created. Note: this program does not  create a folder for you.
+	 * Additionally, if you try to run the program and create a file with the same name as a file that
+	 * already exits in that folder, it will tell you so and not overwrite the original file.
+	 * NUM_TEST_FILES: This is the number of test files you would like to produce.
+	 * FILE_NAME: The name that you want each file to have. It will generate "FILE_NAME0", "FILE_NAME1" ...
+	 */
 	public static final String FILE_PATH = FS+"Users"+FS+"maddienelson"+FS+"Documents"+FS+"Bathymetry";
 	public static final int NUM_TEST_FILES = 10;
-	public static final String BTY = ".bty";
 	public static final String ENV = ".env";
-	public static final String TEST_FILE = "testfile";
 	public static final String NL = "\n";
 	public static final String SPACE = "  ";
 	public static final String BIG_SPACE = "                     ";
-	public static final String LAKE_DATA = "FallsLake";
-
-
-	public static int NUM_ROWS;
-	public static int NUM_COLS;
 	
-	static double[][] grid;
-	
+	//File Names can be changed.
 	public static ArrayList<String> FILE_NAMES = new ArrayList<String>(){{
 	    add("Washington");
 	    add("Adams");
@@ -48,13 +50,19 @@ public class GenerateEnv {
 	    add("Buchanan");
 	    add("Lincoln");
 	}};
-	//FOR ENV
-	public static final double FREQ = 1500.0;
+	
+	/**Variables to change:*/
+	//the frequency in (Hz)
+	public static final double FREQ = 30000.0;
+	//the number of NMEDIA
 	private static final int NMEDIA = 1;
+	//the SSPOPT (Analytic or C-Linear interpolation)
 	private static final String SSPOPT = "'CVW'";
+	//the Different Depth Values of bottom (m)
 	private static final double DEPTH1 = 51;
 	private static final double DEPTH2 = 0.0;
 	private static final double DEPTH3 = 20.0;
+	//Depth Values (vertical)
 	private static final double VAL1 = 0;
 	private static final double VAL2 = 10;
 	private static final double VAL3 = 20;
@@ -63,38 +71,53 @@ public class GenerateEnv {
 	private static final double NUM3 = 0.0;
 	private static final double NUM4 = 1.8;
 	private static final double NUM5 = 0.8;
+	//Nsx number of source coordinates in x
 	private static final double NSX = 1;
+	// x coordinate(s) of source (km)
 	private static final double XCORD_SOURCE = -0.1;
 	private static final double XCORD_SOURCE2 = -0.1;
+	//NSY number of source coordinates in y
 	private static final double NSY = 1;
+	// y coordinate(s) of source (km)
 	private static final double YCORD_SOURCE = -0.250;
+	//The number of source depths
 	private static final double NSD = 1;
+	// The source depths (m)
 	private static double SD;
+	// The number of receiver depths
 	private static final double NRD = 3;
+	// The receiver depths (m)
 	private static double RD0;
 	private static double RD1;
+	// The number of receiver ranges
 	private static final double NR = 1;
+	// The receiver ranges (km)
 	private static final double R0 = 0;
 	private static final double R1 = 0.001;
+	// The number of receiver bearings (radial)
 	private static final double NTHETA = 3;
+	// Bearing Angles (degrees)
 	private static final double BANG2 = 120.0;
 	private static final double BANG1 = 60.0;
 	private static final double BANG0 = 0.0;
 	private static final String RCIS = "'AB   3'";
+	// Number of beams in elevation
 	private static final double NALPHA1 = 300;
 	private static final double NALPHA2 = 1;
+	// Beam elevation angles (degrees) (negative angles toward surface)
 	private static final double ALPHA1 = -20;
 	private static final double ALPHA2 = 20;
+	// Number of beams in azimuth
 	private static final double NBETA2 = 1;
 	private static final double NBETA1 = 361;
+	// Beam azimuth angles (degrees) (math convention with 0 degrees pointing along the x-axis
 	private static final double BETA1 = 0;
 	private static final double BETA2 = 360;
+	// The step size used for tracing the rays (m)
 	private static final double STEP2 = 1;
 	private static final double STEP1 = 0.0;
 	private static final double STEP3 = 1;
 	private static final double STEP4 = 50.0;
-	private static final double MAX_DEPTH = 13.0;
-	private static final double MIN_DEPTH = 5.0;
 
 
 	public static void main(String[] args) throws IOException {
@@ -126,7 +149,7 @@ public class GenerateEnv {
 		double delta = 0.1;
 		RD0 = SD;
 		RD1 = SD+delta;
-		str.append("'"+FILE_NAMES.get(fileNum)+" (3D run)' ! TITLE"+NL); //don't know what the R is for...could be L or C
+		str.append("'"+FILE_NAMES.get(fileNum)+" (3D run)' ! TITLE"+NL);
 		str.append(FREQ+BIG_SPACE+"! FREQ (Hz)"+NL);
 		str.append(NMEDIA+BIG_SPACE+"! NMEDIA"+NL);
 		str.append(SSPOPT+BIG_SPACE+"! SSPOPT (Analytic or C-Linear interpolation)"+NL);
@@ -134,7 +157,7 @@ public class GenerateEnv {
 		str.append(BIG_SPACE+VAL1+SPACE+"/"+NL);
 		str.append(BIG_SPACE+VAL2+SPACE+"/"+NL);
 		str.append(BIG_SPACE+VAL3+SPACE+"/"+NL);
-		str.append("'A~' 0.0"+ NL); //WHAT IS THIS?
+		str.append("'A~' 0.0"+ NL); 
 		str.append(NUM1+SPACE+NUM2+SPACE+NUM3+SPACE+NUM4+SPACE+NUM5+SPACE+"/"+NL);
 		str.append(NSX+BIG_SPACE+"! Nsx number of source coordinates in x"+NL);
 		str.append(XCORD_SOURCE+SPACE+XCORD_SOURCE2+SPACE+"/"+BIG_SPACE+"! x coordinate of source (km)"+NL);
